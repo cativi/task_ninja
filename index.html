@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -9,6 +9,84 @@
 </head>
 
 <body>
+
+    <header></header>
+
+    <div class="wrapper">
+        <main>
+            <section>
+                <h1>Task <span>Ninja:</span> Tu Gestor de Tareas</h1>
+                <form action="" id="formulario">
+                    <div>
+                        <div>
+                            <label id="nuevaTarea">Nueva Tarea</label>
+                            <input type="text" id="nuevaTarea" name="nuevaTarea" placeholder="Escribe una nueva tarea">
+                            <label id="prioridad"></label>
+                        </div>
+                        <div>
+                            <p><strong></strong></p>
+                            <select id="seleccionarFrecuencia">
+                                <option value="">Seleccionar Frecuencia</option>
+                                <option value="diaria">Diaria</option>
+                                <option value="Semanal">Semanal</option>
+                                <option value="Mensual">Mensual</option>
+                            </select>
+
+                            <input type="submit" value="Guardar">
+                        </div>
+                    </div>
+                </form>
+
+                <div>
+                    <p>Tarea guardada con éxito</p>
+                </div>
+
+                <hr>
+
+                <div id="filtrarFrecuencia">
+                    <select>
+                        <option value="">Filtrar por Frecuencia</option>
+                        <option value="diaria">Diaria</option>
+                        <option value="Semanal">Semanal</option>
+                        <option value="Mensual">Mensual</option>
+                    </select>
+
+
+                    <form id="buscadorTareas">
+                        <div>
+                            <label for="tareas"></label>
+                            <input type="text" name="tareas" id="tareas" placeholder="Busca una tarea">
+                        </div>
+                        <input type="submit" value="Buscar">
+                    </form>
+
+                </div>
+
+                <table border="1" width="100%">
+                    <thead>
+                        <th>Tarea</th>
+                        <th>Frecuencia</th>
+                        <th>#</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Aprender JS nativo</td>
+                            <td>Diaria</td>
+                            <td><button>Borrar</button></td>
+                        </tr>
+                        <tr>
+                            <td>Repasar CSS</td>
+                            <td>Semanal</td>
+                            <td><button>Borrar</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+            </section>
+        </main>
+    </div>
+
     <script src="./js/taskNinja.js"></script>
 </body>
 

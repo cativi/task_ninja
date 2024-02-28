@@ -1,0 +1,54 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+div.wrapper {
+    text-align: center;
+}
+
+section {
+    background-color: lightgrey;
+    margin-top: 300px;
+    padding: 30px;
+}
+
+h1 span {
+    font-style: italic;
+    color: white;
+}
+
+#formulario {
+    margin: 30px auto;
+    width: 100%;
+}
+
+#formulario>div:first-child {
+    background-color: red;
+    display: flex;
+    flex-wrap: wrap;
+
+}
+
+/* #formulario>div:first-child {
+    width: 70%;
+}
+
+#formulario>div:last-child {
+    width: 30%;
+} */
+
+div>p {
+    background-color: yellow;
+}
+
+#filtrarFrecuencia {
+    background-color: blue;
+    color: white;
+}
