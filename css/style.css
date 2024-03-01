@@ -6,19 +6,22 @@ h1 {
     color: white;
 }
 
-span {
+/* label.azulito {
     color: #0c3953;
-}
+} */
 
 .mb-3>label {
     font-size: 1.5rem;
     color: white;
 }
 
-td.borrar {
-    color: red;
+.borrar {
+    background-color: red;
+    color: white;
+    border-radius: 15px;
+    padding: 0 10px;
 
     &:hover {
-        color: black;
+        background-color: black;
     }
 }

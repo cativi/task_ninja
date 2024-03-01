@@ -15,16 +15,16 @@
 
     <main>
         <section class="container ">
-            <h1 class="mt-4 mb-4">Gestor de <span>Tareas</span></h1>
+            <h1 class="mt-4 mb-4">Gestor de Tareas</h1>
 
-            <form id="formsuscription">
+            <form id="formTareas">
                 <div class="mb-3">
-                    <label for="nuevaTarea" class="form-label"><span>Nueva</span> Tarea</label>
-                    <input type="text" class="form-control" id="nuevaTarea" name="nuevaTarea"
+                    <label for="tarea" class="form-label">Nueva Tarea</label>
+                    <input type="text" class="form-control" id="tarea" name="tarea"
                         placeholder="Escribe una nueva tarea">
                 </div>
 
-                <select class="form-select" aria-label="Default select example">
+                <select class="form-select" aria-label="Default select example" name="seleccionarFrecuencia">
                     <option selected>Seleccionar Frecuencia</option>
                     <option value="diaria">Diaria</option>
                     <option value="semanal">Semanal</option>
@@ -58,34 +58,24 @@
         </section>
 
         <section class="container" id="tareasGuardadas">
+
             <table class="table">
                 <thead>
                     <tr>
-                        <th scope="col">Id</th>
+                        <!-- <th scope="col">Id</th> -->
                         <th scope="col">Tarea</th>
                         <th scope="col">Frecuencia</th>
                         <th scope="col">Acción</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row" id="tarea1">1</th>
-                        <td>Aprender JS Vanilla</td>
-                        <td>Diaria</td>
-                        <td class="borrar">Borrar</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" id="tarea2">2</th>
-                        <td>Ir a nadar</td>
-                        <td>Semanal</td>
-                        <td class="borrar">Borrar</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" id="tarea3">3</th>
+
+                    <!-- <tr>
+                             <th scope="row" id="tarea3">3</th>
                         <td>Leer un Libro</td>
                         <td>Mensual</td>
-                        <td class="borrar">Borrar</td>
-                    </tr>
+                        <td><button class="borrar">Borrar</button></td>
+                    </tr> -->
                 </tbody>
             </table>
 
