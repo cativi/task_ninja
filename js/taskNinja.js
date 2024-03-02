@@ -3,6 +3,9 @@ const form = document.querySelector('#formTareas');
 const tbody = document.querySelector('#tareasGuardadas tbody');
 const arrayTareas = [];
 let idInicial = 1;
+const selectFrecuencia = document.querySelector('#filtrarFrecuencia');
+selectFrecuencia.addEventListener('change', actualizarTareasFiltradas);
+
 
 function guardarTarea(lista, nuevaTarea) {
     let posicion = lista.findIndex(tarea => tarea.value === nuevaTarea.value);
@@ -12,6 +15,7 @@ function guardarTarea(lista, nuevaTarea) {
         return {
             status: true, msg: 'Tarea guardada correctamente'
         };
+
     } else {
         return { status: false, msg: 'Tarea duplicada' };
     }
@@ -21,35 +25,20 @@ function borrarTarea(event) {
     let id = Number(event.target.dataset.id);
     let posicion = arrayTareas.findIndex(tarea => tarea.id === id);
     arrayTareas.splice(posicion, 1);
-    console.log(arrayTareas);
+
     let tbody = event.target.parentNode.parentNode.parentNode;
     let hijo = event.target.parentNode.parentNode
     tbody.removeChild(hijo);
     alert('Tarea borrada correctamente');
 
-    pintarTodasLasTareas(arrayTareas, tbody);
+    actualizarTareasFiltradas();
 }
 
-//FILTRAR TAREA
+
 function filtrarFrecuencia(listaTareas, frecuencia) {
     const listaFiltrada = listaTareas.filter(tarea => tarea.seleccionarFrecuencia === frecuencia);
     return listaFiltrada;
 }
-
-// function pintarTareaFiltrada(tareaFiltrada, domElement) {
-
-// } 
-
-
-/*      
-<p>Filtrado por diagnostico</p>
-    <select id="selectDiagnosis">
-        <option value="">Selecciona un diagnostico</option>
-        <option value="gripe">Gripe</option>
-        <option value="hipertension">Hipertensión</option>
-        <option value="agorafobia">Agorafobia</option>
-    </select> 
-*/
 
 // BUSCAR TAREA
 
@@ -64,20 +53,6 @@ function filtrarFrecuencia(listaTareas, frecuencia) {
 //     return texto
 // }
 
-
-/*
-tbody.innerHTML = `<tr>
-    <th scope="row" id="tarea3">3</th>
-    <td>Leer un Libro</td>
-    <td>Mensual</td>
-    <td><button class="borrar">Borrar</button></td>
-</tr>`
-*/
-
-// tbody haría lo que el dompacientes
-// const domPacientes = document.querySelector('main .flex');
-// recorrer el array de tareas.length y meterlo con textContent en su elemento del DOM
-// domTotal.textContent = pacientes.length;
 
 function pintarTarea(nuevaTarea, domElement) {
 
@@ -109,7 +84,6 @@ function pintarTodasLasTareas(lista, domElement) {
     }
 }
 
-
 function capturarData(event) {
     event.preventDefault();
 
@@ -117,7 +91,7 @@ function capturarData(event) {
     const frecuencia = event.target.seleccionarFrecuencia.value;
 
     if (tarea === "" && frecuencia === "Seleccionar Frecuencia") {
-        alert('Completa la tarea y selecciona una frecuencia.');
+        alert('Crea una tarea y asígnale una frecuencia.');
     } else if (tarea === "") {
         alert('La tarea no puede estar vacía.');
     } else if (frecuencia === "Seleccionar Frecuencia") {
@@ -135,12 +109,40 @@ function capturarData(event) {
             pintarTarea(nuevaTarea, tbody);
             alert(respuesta.msg)
 
+
         } else {
             console.log(respuesta, nuevaTarea);
             alert(respuesta.msg)
         }
+
+        pintarTodasLasTareas(arrayTareas, tbody);
+        actualizarTareasFiltradas();
+    }
+}
+
+function actualizarTareasFiltradas() {
+    const frecuenciaSeleccionada = document.querySelector('#filtrarFrecuencia').value;
+
+    if (frecuenciaSeleccionada !== 'Filtrar por Frecuencia') {
+        const tareasFiltradas = filtrarFrecuencia(arrayTareas, frecuenciaSeleccionada);
+        pintarTodasLasTareas(tareasFiltradas, tbody);
+
+        if (tareasFiltradas.length === 0) {
+            tbody.innerHTML = '<td style="color: red">No hay Resultados. Crea una Nueva Tarea.</td>';
+        }
+    } else {
         pintarTodasLasTareas(arrayTareas, tbody);
     }
+
+    const filtro = document.querySelector('#filtrarFrecuencia');
+    const frecuenciasExistentes = [];
+
+    for (const tarea of arrayTareas) {
+        if (!frecuenciasExistentes.includes(tarea.seleccionarFrecuencia)) {
+            frecuenciasExistentes.push(tarea.seleccionarFrecuencia);
+        }
+    }
+    filtro.disabled = frecuenciasExistentes.length === 0;
 }
 
 pintarTodasLasTareas(arrayTareas, tbody);
