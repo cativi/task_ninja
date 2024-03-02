@@ -33,24 +33,29 @@
 
                 <button type="submit" class="btn btn-primary mt-3 mb-3">Guardar</button>
 
-                <div class="alert alert-success" role="alert">
+                <!-- <div class="alert alert-success" role="alert">
                     Tarea guardada con éxito.
-                </div>
+                </div> -->
             </form>
 
 
             <div class="row">
+
                 <div class="col">
-                    <select class="form-select" aria-label="Default select example">
+                    <input type="text" class="form-control" placeholder="Buscar tarea" aria-label="Last name"
+                        id="buscarTarea">
+                </div>
+                <!-- <input type="submit" name="Buscar" id="botonBuscar"> -->
+
+                <div class="col">
+                    <select class="form-select" aria-label="Default select example" id="filtrarFrecuencia">
                         <option selected>Filtrar por Frecuencia</option>
                         <option value="diaria">Diaria</option>
                         <option value="semanal">Semanal</option>
                         <option value="mensual">Mensual</option>
                     </select>
                 </div>
-                <div class="col">
-                    <input type="text" class="form-control" placeholder="Buscar tarea" aria-label="Last name">
-                </div>
+
             </div>
 
             <hr>
@@ -62,7 +67,6 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <!-- <th scope="col">Id</th> -->
                         <th scope="col">Tarea</th>
                         <th scope="col">Frecuencia</th>
                         <th scope="col">Acción</th>
@@ -71,10 +75,9 @@
                 <tbody>
 
                     <!-- <tr>
-                             <th scope="row" id="tarea3">3</th>
-                        <td>Leer un Libro</td>
-                        <td>Mensual</td>
-                        <td><button class="borrar">Borrar</button></td>
+                            <td>Leer un Libro</td>
+                            <td>Mensual</td>
+                            <td><button class="borrar">Borrar</button></td>
                     </tr> -->
                 </tbody>
             </table>

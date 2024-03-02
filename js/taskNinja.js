@@ -1,8 +1,7 @@
+
 const form = document.querySelector('#formTareas');
 const tbody = document.querySelector('#tareasGuardadas tbody');
 const arrayTareas = [];
-// {id:1, value: 'Sacar al perro', value: 'diaria'}
-
 let idInicial = 1;
 
 function guardarTarea(lista, nuevaTarea) {
@@ -10,9 +9,11 @@ function guardarTarea(lista, nuevaTarea) {
     if (posicion === -1) {
         lista.push(nuevaTarea);
         idInicial++;
-        return { status: true, msg: 'Tarea guardada correctamente' }
+        return {
+            status: true, msg: 'Tarea guardada correctamente'
+        };
     } else {
-        return { status: false, msg: 'Tarea duplicada' }
+        return { status: false, msg: 'Tarea duplicada' };
     }
 }
 
@@ -24,7 +25,45 @@ function borrarTarea(event) {
     let tbody = event.target.parentNode.parentNode.parentNode;
     let hijo = event.target.parentNode.parentNode
     tbody.removeChild(hijo);
+    alert('Tarea borrada correctamente');
+
+    pintarTodasLasTareas(arrayTareas, tbody);
 }
+
+//FILTRAR TAREA
+function filtrarFrecuencia(listaTareas, frecuencia) {
+    const listaFiltrada = listaTareas.filter(tarea => tarea.seleccionarFrecuencia === frecuencia);
+    return listaFiltrada;
+}
+
+// function pintarTareaFiltrada(tareaFiltrada, domElement) {
+
+// } 
+
+
+/*      
+<p>Filtrado por diagnostico</p>
+    <select id="selectDiagnosis">
+        <option value="">Selecciona un diagnostico</option>
+        <option value="gripe">Gripe</option>
+        <option value="hipertension">Hipertensión</option>
+        <option value="agorafobia">Agorafobia</option>
+    </select> 
+*/
+
+// BUSCAR TAREA
+
+
+// function quitarTildes(cadena) {
+//     let texto = cadena.replaceAll('á', 'a');
+//     const arrayCon = ['é', 'í', 'ó', 'ú']
+//     const arraySin = ['e', 'i', 'o', 'u']
+//     for (let i = 0; i < arraySin.length; i++) {
+//         texto = texto.replaceAll(arrayCon[i], arraySin[i])
+//     }
+//     return texto
+// }
+
 
 /*
 tbody.innerHTML = `<tr>
@@ -35,12 +74,18 @@ tbody.innerHTML = `<tr>
 </tr>`
 */
 
+// tbody haría lo que el dompacientes
+// const domPacientes = document.querySelector('main .flex');
+// recorrer el array de tareas.length y meterlo con textContent en su elemento del DOM
+// domTotal.textContent = pacientes.length;
+
 function pintarTarea(nuevaTarea, domElement) {
+
     const tr = document.createElement('tr');
     const th = document.createElement('th');
     const td1 = document.createElement('td');
     const td2 = document.createElement('td');
-    // td2.addEventListener('change', capturarData);
+
     const button = document.createElement('button');
     button.addEventListener('click', borrarTarea);
     button.dataset.id = nuevaTarea.id;
@@ -55,6 +100,14 @@ function pintarTarea(nuevaTarea, domElement) {
     domElement.appendChild(tr);
 }
 
+function pintarTodasLasTareas(lista, domElement) {
+    if (lista.length > 0) {
+        domElement.innerHTML = "";
+        lista.forEach(tarea => pintarTarea(tarea, domElement));
+    } else {
+        domElement.innerHTML = '<td style="color: red">No hay Resultados. Crea una Nueva Tarea.</td>';
+    }
+}
 
 
 function capturarData(event) {
@@ -80,16 +133,18 @@ function capturarData(event) {
 
         if (respuesta.status) {
             pintarTarea(nuevaTarea, tbody);
+            alert(respuesta.msg)
 
         } else {
             console.log(respuesta, nuevaTarea);
             alert(respuesta.msg)
         }
+        pintarTodasLasTareas(arrayTareas, tbody);
     }
 }
 
-form.addEventListener('submit', capturarData)
+pintarTodasLasTareas(arrayTareas, tbody);
 
-
+form.addEventListener('submit', capturarData);
 
 
