@@ -5,6 +5,8 @@ const arrayTareas = [];
 let idInicial = 1;
 const selectFrecuencia = document.querySelector('#filtrarFrecuencia');
 selectFrecuencia.addEventListener('change', actualizarTareasFiltradas);
+const buscarInput = document.querySelector('#buscarTarea');
+buscarInput.addEventListener('input', buscarTareas);
 
 
 function guardarTarea(lista, nuevaTarea) {
@@ -48,8 +50,7 @@ function quitarTildes(cadena) {
     return texto
 }
 
-const buscarInput = document.querySelector('#buscarTarea');
-buscarInput.addEventListener('input', buscarTareas);
+
 
 function buscarTareas() {
     const filtro = quitarTildes(buscarInput.value.toLowerCase());
