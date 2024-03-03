@@ -15,7 +15,6 @@ function guardarTarea(lista, nuevaTarea) {
         return {
             status: true, msg: 'Tarea guardada correctamente'
         };
-
     } else {
         return { status: false, msg: 'Tarea duplicada' };
     }
@@ -34,24 +33,37 @@ function borrarTarea(event) {
     actualizarTareasFiltradas();
 }
 
-
 function filtrarFrecuencia(listaTareas, frecuencia) {
     const listaFiltrada = listaTareas.filter(tarea => tarea.seleccionarFrecuencia === frecuencia);
     return listaFiltrada;
 }
 
-// BUSCAR TAREA
+function quitarTildes(cadena) {
+    let texto = cadena.replaceAll('á', 'a');
+    const arrayCon = ['é', 'í', 'ó', 'ú']
+    const arraySin = ['e', 'i', 'o', 'u']
+    for (let i = 0; i < arraySin.length; i++) {
+        texto = texto.replaceAll(arrayCon[i], arraySin[i])
+    }
+    return texto
+}
 
+const buscarInput = document.querySelector('#buscarTarea');
+buscarInput.addEventListener('input', buscarTareas);
 
-// function quitarTildes(cadena) {
-//     let texto = cadena.replaceAll('á', 'a');
-//     const arrayCon = ['é', 'í', 'ó', 'ú']
-//     const arraySin = ['e', 'i', 'o', 'u']
-//     for (let i = 0; i < arraySin.length; i++) {
-//         texto = texto.replaceAll(arrayCon[i], arraySin[i])
-//     }
-//     return texto
-// }
+function buscarTareas() {
+    const filtro = quitarTildes(buscarInput.value.toLowerCase());
+    const tareasFiltradas = arrayTareas.filter(tarea => {
+        const tareaTexto = quitarTildes(tarea.value.toLowerCase());
+        return tareaTexto.includes(filtro);
+    });
+    pintarTodasLasTareas(tareasFiltradas, tbody);
+
+    if (tareasFiltradas.length === 0) {
+        tbody.innerHTML = '<td class="mensaje-sin-resultado">No hay Resultados. Crea una Nueva Tarea.</td>';
+    }
+}
+
 
 
 function pintarTarea(nuevaTarea, domElement) {
@@ -69,8 +81,16 @@ function pintarTarea(nuevaTarea, domElement) {
     th.textContent = nuevaTarea.value.toUpperCase();
     td1.textContent = nuevaTarea.seleccionarFrecuencia.toUpperCase();
 
-    td2.appendChild(button);
+    if (nuevaTarea.seleccionarFrecuencia.toLowerCase() === 'diaria') {
+        td1.classList.add('diaria');
+    } else if (nuevaTarea.seleccionarFrecuencia.toLowerCase() === 'semanal') {
+        td1.classList.add('semanal');
+    } else if (nuevaTarea.seleccionarFrecuencia.toLowerCase() === 'mensual') {
+        td1.classList.add('mensual');
+    }
 
+
+    td2.appendChild(button);
     tr.append(th, td1, td2);
     domElement.appendChild(tr);
 }
@@ -80,12 +100,15 @@ function pintarTodasLasTareas(lista, domElement) {
         domElement.innerHTML = "";
         lista.forEach(tarea => pintarTarea(tarea, domElement));
     } else {
-        domElement.innerHTML = '<td style="color: red">No hay Resultados. Crea una Nueva Tarea.</td>';
+        domElement.innerHTML = '<td class="mensaje-sin-resultado">No hay Resultados. Crea una Nueva Tarea.</td>';
     }
 }
 
 function capturarData(event) {
     event.preventDefault();
+
+    const tareaInput = event.target.tarea;
+    const frecuenciaSelect = event.target.seleccionarFrecuencia;
 
     const tarea = event.target.tarea.value;
     const frecuencia = event.target.seleccionarFrecuencia.value;
@@ -107,8 +130,10 @@ function capturarData(event) {
 
         if (respuesta.status) {
             pintarTarea(nuevaTarea, tbody);
-            alert(respuesta.msg)
+            alert(respuesta.msg);
 
+            tareaInput.value = "";
+            frecuenciaSelect.selectedIndex = 0;
 
         } else {
             console.log(respuesta, nuevaTarea);
@@ -128,7 +153,7 @@ function actualizarTareasFiltradas() {
         pintarTodasLasTareas(tareasFiltradas, tbody);
 
         if (tareasFiltradas.length === 0) {
-            tbody.innerHTML = '<td style="color: red">No hay Resultados. Crea una Nueva Tarea.</td>';
+            tbody.innerHTML = '<td class="mensaje-sin-resultado">No hay Resultados. Crea una nueva tarea.</td>';
         }
     } else {
         pintarTodasLasTareas(arrayTareas, tbody);
