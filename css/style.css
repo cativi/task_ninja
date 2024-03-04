@@ -26,6 +26,12 @@ td.mensaje-sin-resultado {
     color: red;
 }
 
+td.mensaje-sin-resultado.col {
+    width: 100%;
+    /* Ocupará todo el ancho disponible */
+}
+
+
 td.diaria {
     color: #0c3953;
 }
